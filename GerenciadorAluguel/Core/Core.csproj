@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Configurations\" />
+    <Folder Include="Models\Dtos\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="Models\Filters\" />
+    <Folder Include="Util\" />
+  </ItemGroup>
+
+</Project>
