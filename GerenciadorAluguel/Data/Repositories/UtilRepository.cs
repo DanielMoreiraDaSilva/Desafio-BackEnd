@@ -15,7 +15,8 @@ namespace Data.Repositories
 
         public async Task<bool> IsFieldValueUniqueAsync<T>(string table, string field, T value)
         {
-            var query = new StringBuilder().AppendFormat("SELECT COUNT(*) FROM {0} WHERE {1} = @{1}", table, field);
+            var query = new StringBuilder()
+                .AppendFormat("SELECT COUNT(*) FROM {0} WHERE {1} = @{1}", table, field);
 
             DynamicParameters parameters = new();
             parameters.Add(string.Concat("@", field), value);
@@ -26,5 +27,20 @@ namespace Data.Repositories
 
             return result == 0;
         }
+
+        public async Task UpdateFieldAsync<T>(string table, string fieldToUpdate, T valueToUpdate, string fieldToMatch, object valueToMatch)
+        {
+            var query = new StringBuilder()
+                .AppendFormat("UPDATE {0} SET {1}=@{1} WHERE {2}=@{2};", table, fieldToUpdate, fieldToMatch);
+
+            DynamicParameters parameters = new();
+            parameters.Add(string.Concat("@", fieldToUpdate), valueToUpdate);
+            parameters.Add(string.Concat("@", fieldToMatch), valueToMatch);
+
+            using IDbConnection connection = _connection.Invoke();
+
+            await connection.ExecuteAsync(query.ToString(), parameters);
+        }
+
     }
 }

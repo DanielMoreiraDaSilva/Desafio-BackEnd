@@ -1,8 +1,8 @@
 ﻿namespace Core.Models
 {
-    public class UserValidateReturn
+    public class ValidateReturn
     {
-        public UserValidateReturn()
+        public ValidateReturn()
         {
             Errors = new();
         }

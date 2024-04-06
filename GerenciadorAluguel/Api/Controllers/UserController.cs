@@ -20,7 +20,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await _service.GetAllCNHTypeAsync(valid);
+                var result = await _service.GetAllCNHTypeAsync(valid).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -36,11 +36,11 @@ namespace Api.Controllers
         {
             try
             {
-                var validate = await _service.ValidateNewUserAsync(user);
+                var validate = await _service.ValidateNewUserAsync(user).ConfigureAwait(false);
 
                 if (!validate.Errors.Any())
                 {
-                    await _service.AddAsync(user);
+                    await _service.AddAsync(user).ConfigureAwait(false);
                     return Ok("User inserted");
                 }
                 else
@@ -53,28 +53,29 @@ namespace Api.Controllers
             }
         }
 
-        // No seu controller
         [HttpPost("atualizar-cadastro")]
-        public async Task<IActionResult> AtualizarCadastro([FromServices] IUserService _service, [FromForm] IFormFile cnhImage)
+        public async Task<IActionResult> UpdaloadCnhImage([FromServices] IUserService _service, Guid idUser, IFormFile cnhImage)
         {
-            if (cnhImage == null || cnhImage.Length == 0)
-                return BadRequest("Nenhuma imagem da CNH foi enviada.");
-
-            if (cnhImage.ContentType != "image/png" && cnhImage.ContentType != "image/bmp")
-                return BadRequest("O formato do arquivo deve ser PNG ou BMP.");
-
-            // Salvar a imagem no armazenamento escolhido (por exemplo, no disco local)
-            string filePath = "caminho/do/arquivo/no/storage/" + cnhImage.FileName;
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            try
             {
-                await cnhImage.CopyToAsync(stream);
+                if (cnhImage == null || cnhImage.Length == 0)
+                    return BadRequest("Nenhuma imagem da CNH foi enviada.");
+
+                if (cnhImage.ContentType != "image/png" && cnhImage.ContentType != "image/bmp")
+                    return BadRequest("O formato do arquivo deve ser PNG ou BMP.");
+
+                using var stream = new MemoryStream();
+                await cnhImage.CopyToAsync(stream).ConfigureAwait(false);
+
+                await _service.UpdaloadCnhImageAsync(idUser, stream, cnhImage.ContentType).ConfigureAwait(false);
+
+                return Ok("Cadastro atualizado com sucesso.");
             }
-
-            // Atualizar o cadastro do entregador no banco de dados, armazenando apenas a referência para a foto (URL ou caminho do arquivo)
-            string fotoUrl = "url/para/a/foto/no/storage";
-            // Faça a atualização no banco de dados
-
-            return Ok("Cadastro atualizado com sucesso.");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest("Doesn't possible update CNH image");
+            }
         }
 
     }

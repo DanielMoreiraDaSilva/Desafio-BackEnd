@@ -7,11 +7,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AWSSDK.S3" Version="3.7.307.11" />
+		<PackageReference Include="AWSSDK.SQS" Version="3.7.300.70" />
 		<PackageReference Include="Dapper" Version="2.0.123" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Core\Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Util\" />
 	</ItemGroup>
 
 </Project>

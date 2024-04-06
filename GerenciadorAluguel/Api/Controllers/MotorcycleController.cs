@@ -20,11 +20,11 @@ namespace Api.Controllers
         {
             try
             {
-                var validate = await _service.ValidateUniquePlateAsync(motorcycle.Plate);
+                var validate = await _service.IsPlateUniqueAsync(motorcycle.Plate);
 
                 if(validate)
                 {
-                    await _service.AddAsync(motorcycle);
+                    await _service.AddMotorcycleAsync(motorcycle);
                     return Ok("Motorcycle inserted");
                 }
                 else
@@ -38,11 +38,11 @@ namespace Api.Controllers
         }
 
         [HttpGet("listMotorcycles")]
-        public async Task<IActionResult> Get([FromServices] IMotorcycleService _service, [FromQuery] MotorcycleFilter? filter = null)
+        public async Task<IActionResult> Get([FromServices] IMotorcycleService _service, [FromQuery] MotorcycleFilter filter)
         {
             try
             {
-                var result = await _service.GetAsync(filter);
+                var result = await _service.GetListMotorcycleAsync(filter);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -50,7 +50,6 @@ namespace Api.Controllers
                 _logger.LogError(ex.Message, ex);
                 return BadRequest("Doesn't possible get motorcycle list");
             }
-
         }
 
         [HttpPut("updateMotorcycle")]
@@ -58,7 +57,7 @@ namespace Api.Controllers
         {
             try
             {
-                var validate = await _service.ValidateUniquePlateAsync(plate);
+                var validate = await _service.IsPlateUniqueAsync(plate);
 
                 if (validate)
                 {
@@ -80,7 +79,7 @@ namespace Api.Controllers
         {
             try
             {
-                var validate = await _service.ValidateHireMotorcycleAsync(idMotorcycle);
+                var validate = await _service.ThereIsRentalForMotorcycleAsync(idMotorcycle);
 
                 if (validate)
                 {
@@ -88,12 +87,64 @@ namespace Api.Controllers
                     return Ok("Motorcycle deleted");
                 }
                 else
-                    return BadRequest($"It wasn't possible exclude motorcycle. There is one or more hire for this motorcycle");
+                    return BadRequest($"It wasn't possible exclude motorcycle. There is one or more rental for this motorcycle");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
                 return BadRequest("Doesn't possible delete this motorcycle");
+            }
+        }
+
+        [HttpGet("listRentalPlan")]
+        public async Task<IActionResult> GetListRentalPlan([FromServices] IMotorcycleService _service)
+        {
+            try
+            {
+                var result = await _service.GetAllRentalPlansAsync().ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest("Doesn't possible get rental plan list");
+            }
+        }
+
+        [HttpPost("rental")]
+        public async Task<IActionResult> Post([FromServices] IMotorcycleService _service, MotorcycleRentalPlan rental)
+        {
+            try
+            {
+                var validate = await _service.ValidateNewMotorcycleRental(rental).ConfigureAwait(false);
+
+                if (!validate.Errors.Any())
+                {
+                    await _service.AddMotorcycleRentalAsync(rental).ConfigureAwait(false);
+                    return Ok("Rental concluded");
+                }
+                else
+                    return BadRequest(validate);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest("Doesn't possible insert motorcycle");
+            }
+        }
+
+        [HttpGet("consultCost")]
+        public async Task<IActionResult> ConsultCost([FromServices] IMotorcycleService _service, [FromQuery] Guid idRentalPlan, [FromQuery] DateTime expectedReturnDate)
+        {
+            try
+            {
+                var result = await _service.CalculateCostPlan(idRentalPlan, expectedReturnDate).ConfigureAwait(false);
+                return Ok(string.Concat("This plan will be cost R$",result));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest("Doesn't possible consult cost plan");
             }
         }
     }
