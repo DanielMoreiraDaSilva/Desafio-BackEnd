@@ -70,7 +70,7 @@ Certifique-se de seguir os passos corretamente e de que todas as dependências e
 
 O arquivo "Arquitetura.jpg" foi criado usando o draw.io, apresentando uma sugestão de arquitetura para a implementação desta solução.
 
-![Arquitetura](./arquitetura.jpg)
+![Arquitetura](./ArquiteturaAWS.jpg)
 
 ### Modelagem de dados
 
@@ -82,6 +82,6 @@ A modelagem de dados visou normalizar as tabelas e seguir os melhores padrões
 
 As camadas da API foram pensadas usando o princípio da responsabilidade única tendo a camada "Data" responsável por todo tipo de integração com dados externos, a camada "Bussiness" responsável por todas as regras de negócio, a camada "Api" responsavél pela comunicação com o cliente e a camada "Core" responsável por todas as models e interfaces do projeto
 
-![ArquiteturaApi](./Arquitetura.png)
+![ArquiteturaApi](./ArquiteturaApi.png)
 
 ---
