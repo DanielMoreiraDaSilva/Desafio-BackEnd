@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1")]
     public class DeliveryOrderController : ControllerBase
     {
         private readonly ILogger<DeliveryOrderController> _logger;
@@ -19,7 +19,7 @@ namespace Api.Controllers
             _service = service;
         }
 
-        [HttpPost("insertDeliveryOrder")]
+        [HttpPost("insert-delivery-order")]
         public async Task<IActionResult> PostInsertDeliveryOrder(DeliveryOrder deliveryOrder)
         {
             try
@@ -50,7 +50,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost("acceptDeliveryOrder")]
+        [HttpPost("accept-delivery-order")]
         public async Task<IActionResult> PostAcceptDeliveryOrder(Guid idUser, Guid idDeliveryOrder)
         {
             try
@@ -76,7 +76,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost("concludeDeliveryOrder")]
+        [HttpPost("conclude-delivery-order")]
         public async Task<IActionResult> PostConcludeDeliveryOrder(Guid idDeliveryOrder)
         {
             try
@@ -92,7 +92,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("listStatusDelivery")]
+        [HttpGet("list-status-delivery")]
         public async Task<IActionResult> GetStatusDelivery()
         {
             try

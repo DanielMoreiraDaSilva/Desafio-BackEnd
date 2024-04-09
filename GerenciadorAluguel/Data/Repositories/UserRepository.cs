@@ -1,5 +1,7 @@
-﻿using Amazon.S3;
+﻿using Amazon.Runtime;
+using Amazon.S3;
 using Amazon.S3.Model;
+using Amazon.SQS;
 using Core;
 using Core.Interfaces.Repositories;
 using Core.Models;
@@ -77,7 +79,7 @@ namespace Data.Repositories
                 Key = path,
                 ContentType = contentType
             };
-
+            
             await _client.PutObjectAsync(request).ConfigureAwait(false);
         }
 

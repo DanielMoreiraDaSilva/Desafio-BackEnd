@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1")]
     public class MotorcycleController : ControllerBase
     {
         private readonly ILogger<MotorcycleController> _logger;
@@ -18,7 +18,7 @@ namespace Api.Controllers
             _service = service;
         }
 
-        [HttpPost("insertMotorcycle")]
+        [HttpPost("insert-motorcycle")]
         public async Task<IActionResult> PostInsertMotorcycle(Motorcycle motorcycle)
         {
             try
@@ -44,7 +44,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("listMotorcycles")]
+        [HttpGet("lis-tmotorcycles")]
         public async Task<IActionResult> GetListMotorcycles([FromQuery] MotorcycleFilter filter)
         {
             try
@@ -59,7 +59,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPut("updateMotorcycle")]
+        [HttpPut("update-motorcycle")]
         public async Task<IActionResult> PutUpdateMotorcycle([FromQuery] Guid idMotorcycle, [FromQuery] string plate)
         {
             try
@@ -85,7 +85,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpDelete("deleteMotorcycle")]
+        [HttpDelete("delete-motorcycle")]
         public async Task<IActionResult> DeleteMotorcycle([FromQuery] Guid idMotorcycle)
         {
             try
@@ -111,7 +111,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("listRentalPlan")]
+        [HttpGet("list-rental-plan")]
         public async Task<IActionResult> GetListRentalPlan()
         {
             try
@@ -158,7 +158,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("consultCost")]
+        [HttpGet("consult-cost")]
         public async Task<IActionResult> ConsultCost([FromQuery] Guid idRentalPlan, [FromQuery] DateTime expectedReturnDate)
         {
             try

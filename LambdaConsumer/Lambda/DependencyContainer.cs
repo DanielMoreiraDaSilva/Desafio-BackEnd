@@ -13,14 +13,14 @@ namespace Lambda
         {
             
             // Postgre Connection
-            var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+            var connectionString = Environment.ExpandEnvironmentVariables("ConnectionString");
             services.AddScoped(provider => new Func<IDbConnection>(() => new NpgsqlConnection(connectionString)));
 
             services.AddScoped<IUseCaseProcessMessage, UseCaseProcessMessage>();
 
             services.AddScoped<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>(
                 x => new AmazonSimpleNotificationServiceClient(new AmazonSimpleNotificationServiceConfig() { 
-                    ServiceURL = Environment.GetEnvironmentVariable("HostPathAWS"),
+                    ServiceURL = Environment.ExpandEnvironmentVariables("HostPathAWS"),
                     RegionEndpoint = RegionEndpoint.SAEast1
                 }));
 

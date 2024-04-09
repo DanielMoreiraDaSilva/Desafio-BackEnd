@@ -3,7 +3,7 @@
 services:
   localstack:
     container_name: "localstack"
-    image: localstack/localstack:1.0.4
+    image: localstack/localstack:latest
     ports:
       - "4566:4566"
     environment:
@@ -11,3 +11,41 @@ services:
       - DEFAULT_REGION=us-east-1
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
+  api: &api
+    container_name: api-challenge
+    image: danielmods/api-challenge
+    hostname: api-challenge
+    environment:
+      - ASPNETCORE_URLS=http://*:8080
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: '80MB'
+  db:
+    container_name: db
+    image: postgres:latest
+    hostname: db
+    environment:
+      - POSTGRES_PASSWORD=inicial
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgresql
+    ports:
+      - "5432:5432"
+    volumes:
+      -  ./config/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    command: postgres -c checkpoint_timeout=600 -c max_wal_size=4096 -c synchronous_commit=0 -c fsync=0 -c full_page_writes=0
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "256MB"
+          
+networks:
+  default:
+    driver: bridge
+    name: network

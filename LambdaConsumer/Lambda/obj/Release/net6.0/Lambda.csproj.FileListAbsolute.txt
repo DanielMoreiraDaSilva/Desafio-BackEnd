@@ -23,9 +23,10 @@ C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\D
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.AssemblyInfoInputs.cache
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.AssemblyInfo.cs
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.csproj.CoreCompileInputs.cache
-C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.csproj.CopyComplete
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.dll
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\refint\Lambda.dll
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.pdb
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.genruntimeconfig.cache
 C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\ref\Lambda.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.sourcelink.json
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Lambda\obj\Release\net6.0\Lambda.csproj.Up2Date

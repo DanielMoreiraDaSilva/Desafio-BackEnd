@@ -1,0 +1,14 @@
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Lambda.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Lambda.deps.json
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Lambda.runtimeconfig.json
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Lambda.pdb
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Amazon.Lambda.Core.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Amazon.Lambda.Serialization.SystemTextJson.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Amazon.Lambda.SQSEvents.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\AWSSDK.Core.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\AWSSDK.SimpleNotificationService.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Dapper.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\publish\Npgsql.dll

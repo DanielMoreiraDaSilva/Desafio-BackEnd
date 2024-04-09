@@ -9,7 +9,7 @@ aws sqs create-queue --queue-name delivery-order --endpoint http://localhost:456
 aws sns create-topic --name delivery-topic --endpoint http://localhost:4566 --region us-east-1
 
 # Comando para criar e implantar a lambda
-aws lambda create-function --function-name lambda-dotnet-function --zip-file fileb://function.zip --handler Lambda::Lambda.Function::FunctionHandler --runtime dotnet6 --role arn:aws:iam::308309238958:role/lambda-dotnet-ex --endpoint http://localhost:4566  --region us-east-1
+aws lambda create-function --function-name lambda-dotnet-function --zip-file fileb://function.zip --handler Lambda::Lambda.Function::FunctionHandler --runtime dotnet8 --role arn:aws:iam::308309238958:role/lambda-dotnet-ex --endpoint http://localhost:4566  --region us-east-1
 
 # Comando para criar a trigger que vincula o SQS a execução da lambda
 aws lambda create-event-source-mapping --function-name lambda-dotnet-function --batch-size 1 --event-source-arn arn:aws:sqs:us-east-1:000000000000:delivery-order --endpoint http://localhost:4566  --region us-east-1

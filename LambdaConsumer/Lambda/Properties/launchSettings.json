@@ -2,13 +2,15 @@
   "profiles": {
     "LambdaExec": {
       "commandName": "Executable",
-      "executablePath": "%USERPROFILE%\\.dotnet\\tools\\dotnet-lambda-test-tool-6.0.exe",
+      "executablePath": "%USERPROFILE%\\.dotnet\\tools\\dotnet-lambda-test-tool-8.0.exe",
       "commandLineArgs": "--port 5050",
-      "workingDirectory": ".\\bin\\$(Configuration)\\net6.0",
+      "workingDirectory": ".\\bin\\$(Configuration)\\net8.0",
       "environmentVariables": {
-        "ConnectionString": "User ID=postgres;Password=inicial;Host=localhost;Port=5432;Database=postgresql;Pooling=true;Connection Lifetime=0;",
-        "HostPathAWS": "http://localhost:4566",
-        "ArnSNS": "arn:aws:sns:sa-east-1:000000000000:delivery-topic"
+        "ConnectionString": "User ID=postgres;Password=inicial;Host=db;Port=5432;Database=postgresql;Pooling=true;Connection Lifetime=0;",
+        //"ConnectionString": "User ID=postgres;Password=inicial;Host=localhost;Port=5432;Database=postgresql;Pooling=true;Connection Lifetime=0;",
+        "HostPathAWS": "http://localstack:4566",
+        //"HostPathAWS": "http://localhost:4566",
+        "ArnSNS": "arn:aws:sns:us-east-1:000000000000:delivery-topic"
       }
     }
   }

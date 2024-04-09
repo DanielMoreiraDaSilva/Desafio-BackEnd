@@ -1,63 +1,63 @@
-# Desafio-BackEnd
-## Documentação do Projeto
+## Execução
 
-### Repositório
+### Pré-requisitos
+- Docker
+- AWS CLI
 
-O repositório contém uma aplicação distribuída composta por uma API .NET, uma função Lambda, um banco de dados PostgreSQL e um arquivo Docker Compose para execução local.
+### 1 - Execução com Docker
 
-### Como Executar
+1. Inicie o docker
+2. Na pasta raiz do repositório, execute `docker-compose up`.
+3. Aguarde até que os containers sejam baixados e iniciados.
 
-#### Softwares Necessários
+### Configuração da AWS CLI
 
-Certifique-se de ter os seguintes softwares instalados:
+1. Após a instância estar em execução, configure a AWS CLI no terminal com `aws configure`.
+2. Insira os seguintes valores:
+   - Access Key ID: 123
+   - Secret Access Key: 123
+   - Default region name: us-east-1
+   - Default output format: json
 
+### Configuração e Implantação AWS
+
+1. Execute o script `script_stack_aws.sh`.
+   - Ele criará um bucket S3, uma fila SQS, um tópico SNS e configurará uma função Lambda.
+   - Implantará a função Lambda compactada no arquivo `function.zip`.
+   - Criará um trigger para a fila SQS, acionando a função Lambda quando mensagens forem consumidas.
+
+### Teste da API
+
+1. Acesse a API via Swagger em `http://localhost:8080/swagger/index.html`.
+2. Utilize ferramentas como Postman ou Insomnia para testar a API.
+
+## 2 - Execução em Ambiente Local
+
+### Pré-requisitos
 - Visual Studio 2022
 - pgAdmin 4
-- Docker
 
-#### Instalações Necessárias
-
-Além disso, você precisará das seguintes instalações:
-
-- SDK .NET 6
-- SDK .NET 7
+### Instalações Necessárias
+- SDK .NET 8
 - AWS CLI
-- Amazon.Lambda.TestTool-6.0
+- Amazon.Lambda.TestTool-8.0
 
-#### Configuração do Banco de Dados PostgreSQL
+### Configuração do Banco de Dados PostgreSQL
 
 1. Abra o pgAdmin 4 e insira a senha "inicial".
-2. Crie uma base de dados com o nome "postgresql".
-3. Use a seguinte connection string para conectar à base de dados:
+2. Crie uma base de dados chamada "postgresql".
+3. Use a seguinte connection string:
 
-```plaintext
+```
 User ID=postgres;Password=inicial;Host=localhost;Port=5432;Database=postgresql;Pooling=true;Connection Lifetime=0;
 ```
 
-4. Execute o script localizado em `./GerenciadorAluguel/Data/Scripts/Database.sql` dentro do banco de dados "postgresql".
+4. Execute o script `./config/setup.sql` na base de dados "postgresql".
 
-#### Execução do Docker Compose
+### Configuração e Execução da API e Lambda
 
-1. Execute o arquivo `docker-compose.yml` localizado na raiz do projeto.
-2. Espere até que o container Docker seja criado e esteja em execução.
+1. Altere a connection string no código para `Host=localhost` e os endereços dos serviços LocalStack para `localhost`.
+2. Execute o script `script_stack_aws.sh` para configurar os serviços AWS localmente.
+3. Execute a API e a função Lambda.
 
-#### Configuração da Lambda e AWS
-
-1. Execute o script `script_stack_aws.sh`.
-   - Este script criará um bucket S3, uma fila SQS, um tópico SNS e configurará uma função Lambda.
-   - Ele também implantará a função Lambda compactada no arquivo `function.zip` localizado na pasta `./LambdaConsumer`.
-   - Além disso, o script criará um trigger para a fila SQS, acionando a função Lambda quando mensagens forem consumidas.
-
-#### Execução da API e Testes
-
-1. Execute a API localmente.
-2. Utilize o Swagger para fazer testes e interagir com os endpoints da API.
-3. Caso queira testar a lambda localmente basta executala e testar utilizando a interface do Amazon.Lambda.TestTool-6.0 simulando o consumo de uma mensagem SQS.
-
-### Observações
-
-Certifique-se de seguir os passos corretamente e de que todas as dependências estejam instaladas corretamente para garantir o funcionamento adequado da aplicação.
-
----
-
-Esta documentação fornece um guia básico para configurar e executar o projeto localmente. Certifique-se de verificar e seguir os passos com cuidado para evitar problemas durante a execução.
+Certifique-se de seguir os passos corretamente e de que todas as dependências estejam instaladas para garantir o funcionamento adequado da aplicação.

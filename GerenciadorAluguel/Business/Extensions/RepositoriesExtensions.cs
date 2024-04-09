@@ -1,4 +1,5 @@
 ﻿using Amazon;
+using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SQS;
 using Core.Interfaces.Repositories;
@@ -16,8 +17,8 @@ namespace Business.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDeliveryOrderRepository, DeliveryOrderRepository>();
             services.AddScoped<IUtilRepository, UtilRepository>();
-            services.AddScoped<IAmazonS3, AmazonS3Client>(x => new AmazonS3Client(new AmazonS3Config() { ServiceURL = configuration["LocalStackAWS:HostPath"], ForcePathStyle = true }));
-            services.AddScoped<IAmazonSQS, AmazonSQSClient>(x => new AmazonSQSClient(new AmazonSQSConfig() { ServiceURL = configuration["LocalStackAWS:HostPath"] }));
+            services.AddScoped<IAmazonS3, AmazonS3Client>(x => new AmazonS3Client(new BasicAWSCredentials(configuration["localstackAccessKey"], configuration["localstackSecretKey"]), new AmazonS3Config() { ServiceURL = configuration["LocalStackAWS:HostPath"], ForcePathStyle = true }));
+            services.AddScoped<IAmazonSQS, AmazonSQSClient>(x => new AmazonSQSClient(new BasicAWSCredentials(configuration["localstackAccessKey"], configuration["localstackSecretKey"]), new AmazonSQSConfig() { ServiceURL = configuration["LocalStackAWS:HostPath"]}));
         }
     }
 }

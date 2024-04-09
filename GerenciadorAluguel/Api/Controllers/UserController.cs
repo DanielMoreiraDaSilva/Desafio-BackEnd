@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -18,7 +18,7 @@ namespace Api.Controllers
             _service = service;
         }
 
-        [HttpGet("listCNHType")]
+        [HttpGet("list-cnh-type")]
         public async Task<IActionResult> GetListCNHType([FromQuery] bool? valid = null)
         {
             try
@@ -33,7 +33,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("listUserNotifiedByDeliveryOrder")]
+        [HttpGet("list-user-notified-by-delivery-order")]
         public async Task<IActionResult> GetListUserNotifiedByDeliveryOrder([FromQuery] Guid idDeliveryOrder)
         {
             try
@@ -48,7 +48,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost("insertUser")]
+        [HttpPost("insert-user")]
         public async Task<IActionResult> PostInsertUser(User user)
         {
             try
@@ -74,7 +74,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost("updateCNHImage")]
+        [HttpPost("update-cnh-image")]
         public async Task<IActionResult> UploadCnhImage([Required] Guid idUser, IFormFile cnhImage)
         {
             try
