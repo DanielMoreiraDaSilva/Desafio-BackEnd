@@ -5,7 +5,11 @@ aws s3 mb s3://storage-cnh-images --endpoint http://localhost:4566 --region us-e
 # Comando para criar uma fila SQS
 aws sqs create-queue --queue-name delivery-order --endpoint http://localhost:4566 --region us-east-1
 
-# Comando para criar um SNS
+# Comando para criar um tópico SNS
 aws sns create-topic --name delivery-topic --endpoint http://localhost:4566 --region us-east-1
 
+# Comando para criar e implantar a lambda
+aws lambda create-function --function-name lambda-dotnet-function --zip-file fileb://function.zip --handler Lambda::Lambda.Function::FunctionHandler --runtime dotnet6 --role arn:aws:iam::308309238958:role/lambda-dotnet-ex --endpoint http://localhost:4566  --region us-east-1
 
+# Comando para criar a trigger que vincula o SQS a execução da lambda
+aws lambda create-event-source-mapping --function-name lambda-dotnet-function --batch-size 1 --event-source-arn arn:aws:sqs:us-east-1:000000000000:delivery-order --endpoint http://localhost:4566  --region us-east-1
