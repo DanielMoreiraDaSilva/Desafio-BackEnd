@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace Core.Models
 {
+    [ExcludeFromCodeCoverage]
     public class MotorcycleRentalPlan
     {
         public Guid Id { get; set; }
@@ -14,6 +16,6 @@ namespace Core.Models
         [JsonIgnore]
         public DateTime RentalEndDate { get; set; }
         [Required(ErrorMessage = "ExpectedReturnDate is required.")]
-        public DateTime ExpectedReturnDate { get; set; }
+        public DateTime? ExpectedReturnDate { get; set; }
     }
 }

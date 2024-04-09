@@ -26,7 +26,7 @@ namespace Business.Services
             var cnhIsValid = false;
 
             if(!user.InsertCNHType.Any())
-                result.Errors.Add("Você deve possuir os tipors de CNH preenchidos");
+                result.Errors.Add("You must have the CNH types filled");
             else
             {
                 foreach (var type in user.InsertCNHType)
@@ -39,19 +39,19 @@ namespace Business.Services
                 }
 
                 if(!cnhIsValid)
-                    result.Errors.Add("Você deve possuir ao menos CNH do tipo A ou B");
+                    result.Errors.Add("You must have at least CNH type A or B");
             }
 
             if (!await _userRepository.IsCNHUniqueAsync(user.CNHNumber).ConfigureAwait(false))
-                result.Errors.Add("CNH já cadastrada para outro usuario");
+                result.Errors.Add("CNH already registered for another user");
 
             if (!await _userRepository.IsCPJUniqueAsync(user.CNPJ).ConfigureAwait(false))
-                result.Errors.Add("CNPJ já cadastrado para outro usuario");
+                result.Errors.Add("CNPJ already registered for another user");
 
             return result;
         }
 
-        public async Task UpdaloadCnhImageAsync(Guid idUser, Stream stream, string contentType)
+        public async Task UploadCnhImageAsync(Guid idUser, Stream stream, string contentType)
         {
             var fileName = await _userRepository.GetLastCNHImagePathOfUserAsync(idUser).ConfigureAwait(false);
 
@@ -59,12 +59,15 @@ namespace Business.Services
             {
                 fileName = string.Concat(Guid.NewGuid().ToString(), ".", contentType.Split("/")[1]);
 
-                await _userRepository.UpdaloadCnhImageAsync(stream, contentType, fileName).ConfigureAwait(false);
+                await _userRepository.UploadCnhImageAsync(stream, contentType, fileName).ConfigureAwait(false);
 
                 await _userRepository.UpdateCNHImagePathAsync(idUser, fileName).ConfigureAwait(false);
             }
             else
-                await _userRepository.UpdaloadCnhImageAsync(stream, contentType, fileName).ConfigureAwait(false);
+                await _userRepository.UploadCnhImageAsync(stream, contentType, fileName).ConfigureAwait(false);
         }
+
+        public async Task<IEnumerable<User>> GetListUserNotifiedByIdDeliveryOrder(Guid IdDeliveryOrder) =>
+            await _userRepository.GetListUserNotifiedByIdDeliveryOrder(IdDeliveryOrder).ConfigureAwait(false);
     }
 }

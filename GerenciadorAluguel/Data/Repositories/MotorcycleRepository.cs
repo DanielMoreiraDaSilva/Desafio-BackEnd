@@ -1,5 +1,7 @@
-﻿using Core.Interfaces.Repositories;
+﻿using Core;
+using Core.Interfaces.Repositories;
 using Core.Models;
+using Core.Models.Filters;
 using Dapper;
 using System.Data;
 using System.Text;
@@ -21,11 +23,11 @@ namespace Data.Repositories
         {
             var query = "INSERT INTO MOTORCYCLE (ID, YEAR, MODEL, PLATE) VALUES (@ID, @YEAR, @MODEL, @PLATE);";
 
-            DynamicParameters parameters = new ();
-            parameters.Add("@ID", motorcycle.Id);
-            parameters.Add("@YEAR", motorcycle.Year);
+            DynamicParameters parameters = new();
+            parameters.Add("@ID", motorcycle.Id.Value);
+            parameters.Add("@YEAR", motorcycle.Year.Value);
             parameters.Add("@MODEL", motorcycle.Model);
-            parameters.Add("@PLATE", motorcycle.Plate);
+            parameters.Add("@PLATE", motorcycle.Plate.ToUpper());
             
 
             using IDbConnection connection = _connection.Invoke();
@@ -88,7 +90,7 @@ namespace Data.Repositories
 
             DynamicParameters parameters = new();
             parameters.Add("@ID", idMotorcycle);
-            parameters.Add("@PLATE", plate);
+            parameters.Add("@PLATE", plate.ToUpper());
 
             using IDbConnection connection = _connection.Invoke();
 
@@ -127,7 +129,7 @@ namespace Data.Repositories
             parameters.Add("@RentalPlanId", rental.IdRentalPlan);
             parameters.Add("@RentalStartDate", rental.RentalStartDate);
             parameters.Add("@RentalEndDate", rental.RentalEndDate);
-            parameters.Add("@ExpectedReturnDate", rental.ExpectedReturnDate);
+            parameters.Add("@ExpectedReturnDate", rental.ExpectedReturnDate.Value);
 
             using IDbConnection connection = _connection.Invoke();
 
@@ -135,9 +137,9 @@ namespace Data.Repositories
         }
 
         public async Task<bool> ThereIsRentalForMotorcycleAsync(Guid idMotorcycle) =>
-            await _utilRepository.IsFieldValueUniqueAsync("MOTORCYCLERENTAL", nameof(idMotorcycle), idMotorcycle);
+            await _utilRepository.IsFieldValueUniqueAsync(Constantes.TABLE_NAME_MOTORCYCLERENTAL, nameof(idMotorcycle), idMotorcycle);
 
         public async Task<bool> IsPlateUniqueAsync(string plate) =>
-            await _utilRepository.IsFieldValueUniqueAsync("MOTORCYCLE", nameof(plate), plate);
+            await _utilRepository.IsFieldValueUniqueAsync(Constantes.TABLE_NAME_MOTORCYCLE, nameof(plate), plate);
     }
 }

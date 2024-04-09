@@ -1,19 +1,24 @@
-﻿using Core.Interfaces.Repositories;
+﻿using Core;
+using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 using Core.Models;
+using Core.Models.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace Business.Services
 {
-    internal class MotorcycleService : IMotorcycleService
+    public class MotorcycleService : IMotorcycleService
     {
         private readonly IMotorcycleRepository _motorcycleRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ILogger<MotorcycleService> _logger;
         public MotorcycleService(IMotorcycleRepository motorcycleRepository, 
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ILogger<MotorcycleService> logger)
         {
             _motorcycleRepository = motorcycleRepository;
             _userRepository = userRepository;
-
+            _logger = logger;
         }
 
         public async Task AddMotorcycleAsync(Motorcycle motorcycle) =>
@@ -42,7 +47,7 @@ namespace Business.Services
             var rentalPlan = (await _motorcycleRepository.GetListRentalPlansAsync(rental.IdRentalPlan).ConfigureAwait(false)).First();
 
             rental.RentalStartDate = DateTime.Now.Date.AddDays(1);
-            rental.RentalEndDate = rental.RentalEndDate.AddDays(rentalPlan.DurationInDays);
+            rental.RentalEndDate = rental.RentalStartDate.AddDays(rentalPlan.DurationInDays);
 
             await _motorcycleRepository.AddMotorcycleRentalAsync(rental).ConfigureAwait(false);
         }
@@ -53,15 +58,23 @@ namespace Business.Services
 
             var listDisponibleMotorcycle = await GetListMotorcycleAsync(new() { Disponible = true }).ConfigureAwait(false);
 
-            var validateMotorcycleDisponible = listDisponibleMotorcycle.Where(x => x.Id == rental.IdMotorcycle).Any();
+            var validateMotorcycleDisponible = listDisponibleMotorcycle.Any(x => x.Id == rental.IdMotorcycle);
 
             if (!validateMotorcycleDisponible)
-                result.Errors.Add("Está moto não esta disponivel no momento");
+            {
+                _logger.LogInformation("Motorcycle with ID {IdMotorcycle} is not available for rental", rental.IdMotorcycle);
+                result.Errors.Add("This motorcycle is not available at the moment");
+            }
 
             var userCNHTypeList = await _userRepository.GetAllCNHTypeOfUserIdAsync(rental.IdUser).ConfigureAwait(false);
 
-            if (!userCNHTypeList.Where(x => x.IdCNHType == Guid.Parse("d498282f-ffd9-4649-a4bd-4769ae7b7f07")).Any())
-                result.Errors.Add("O usuario deve possuir CNH do tipo A");
+            var userHasCNHTypeA = userCNHTypeList.Any(x => x.IdCNHType == Guid.Parse(Constantes.CNH_TYPE_A));
+
+            if (!userHasCNHTypeA)
+            {
+                _logger.LogInformation("User with ID {IdUser} does not have CNH type A", rental.IdUser);
+                result.Errors.Add("The user must have CNH type A");
+            }
 
             return result;
         }
@@ -92,5 +105,6 @@ namespace Business.Services
             else
                 return planCost;
         }
+
     }
 }

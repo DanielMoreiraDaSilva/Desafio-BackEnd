@@ -1,0 +1,356 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Tests\\Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Business\\Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Business\\Business.csproj",
+        "projectName": "Business",
+        "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Business\\Business.csproj",
+        "packagesPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Business\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\danie.DESKTOP-M1EOC6E\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj"
+              },
+              "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Data\\Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.307.11, )"
+            },
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[3.7.100.108, )"
+            },
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj",
+        "projectName": "Core",
+        "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\danie.DESKTOP-M1EOC6E\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Data\\Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Data\\Data.csproj",
+        "projectName": "Data",
+        "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Data\\Data.csproj",
+        "packagesPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\danie.DESKTOP-M1EOC6E\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.307.11, )"
+            },
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[3.7.100.108, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Tests\\Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Tests\\Tests.csproj",
+        "projectName": "Tests",
+        "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Tests\\Tests.csproj",
+        "packagesPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\danie.DESKTOP-M1EOC6E\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Business\\Business.csproj": {
+                "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Business\\Business.csproj"
+              },
+              "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\danie.DESKTOP-M1EOC6E\\OneDrive\\Área de Trabalho\\Trampo\\Repositórios\\Desafio-BackEnd\\GerenciadorAluguel\\Core\\Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.12.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.6.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
+using Amazon.Runtime;
+using Amazon.SQS;
 using Core.Interfaces.Services;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,36 +11,89 @@ namespace Api.Controllers
     public class DeliveryOrderController : ControllerBase
     {
         private readonly ILogger<DeliveryOrderController> _logger;
+        private readonly IDeliveryOrderService _service;
 
-        public DeliveryOrderController(ILogger<DeliveryOrderController> logger)
+        public DeliveryOrderController(ILogger<DeliveryOrderController> logger, IDeliveryOrderService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         [HttpPost("insertDeliveryOrder")]
-        public async Task<IActionResult> Post([FromServices] IDeliveryOrderService _service, DeliveryOrder deliveryOrder)
+        public async Task<IActionResult> PostInsertDeliveryOrder(DeliveryOrder deliveryOrder)
         {
             try
             {
-                var validate = await _service.IsStatusValidAsync(deliveryOrder.IdStatusDeliveryOrder);
+                var isValidStatus = await _service.IsStatusValidAsync(deliveryOrder.IdStatusDeliveryOrder.Value);
 
-                if (validate)
+                if (isValidStatus)
                 {
-                    await _service.AddDeliveyAsync(deliveryOrder);
+                    await _service.AddDeliveryAsync(deliveryOrder);
+                    _logger.LogInformation("Delivery order inserted: {Id}", deliveryOrder.Id);
                     return Ok("Delivery order inserted");
                 }
                 else
-                    return BadRequest($"Id status delivery invalid");
+                {
+                    _logger.LogWarning("Failed to insert delivery order due to invalid status: {IdStatusDeliveryOrder}", deliveryOrder.IdStatusDeliveryOrder);
+                    return BadRequest($"Invalid status for delivery order");
+                }
+            }
+            catch (AmazonSQSException ex)
+            {
+                _logger.LogError(ex, "Failed to send notification delivery order, but the delivery order inserted");
+                return BadRequest("Failed to send notification delivery order, but the delivery order inserted");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Doesn't possible insert delivery order");
+                _logger.LogError(ex, "Failed to insert delivery order");
+                return BadRequest("Failed to insert delivery order");
+            }
+        }
+
+        [HttpPost("acceptDeliveryOrder")]
+        public async Task<IActionResult> PostAcceptDeliveryOrder(Guid idUser, Guid idDeliveryOrder)
+        {
+            try
+            {
+                var isUserNotifiedValid = await _service.IsUserNotifiedValidAsync(idUser, idDeliveryOrder);
+
+                if (isUserNotifiedValid)
+                {
+                    await _service.AcceptDeliveryOrderByUser(idUser, idDeliveryOrder);
+                    _logger.LogInformation("Delivery order accepted by user: {IdUser}, DeliveryOrderId: {IdDeliveryOrder}", idUser, idDeliveryOrder);
+                    return Ok("Delivery order accepted");
+                }
+                else
+                {
+                    _logger.LogWarning("User {IdUser} attempted to accept order {IdDeliveryOrder} without notification", idUser, idDeliveryOrder);
+                    return BadRequest($"User cannot accept order without notification");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to accept delivery order");
+                return BadRequest("Failed to accept delivery order");
+            }
+        }
+
+        [HttpPost("concludeDeliveryOrder")]
+        public async Task<IActionResult> PostConcludeDeliveryOrder(Guid idDeliveryOrder)
+        {
+            try
+            {
+                await _service.ConcludeDeliveryOrderByUser(idDeliveryOrder);
+                _logger.LogInformation("Delivery order concluded: {IdDeliveryOrder}", idDeliveryOrder);
+                return Ok("Delivery order concluded");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to conclude delivery order");
+                return BadRequest("Failed to conclude delivery order");
             }
         }
 
         [HttpGet("listStatusDelivery")]
-        public async Task<IActionResult> GetStatusDelivery([FromServices] IDeliveryOrderService _service)
+        public async Task<IActionResult> GetStatusDelivery()
         {
             try
             {
@@ -47,8 +102,8 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Doesn't possible get status delivery list");
+                _logger.LogError(ex, "Failed to get status delivery list");
+                return BadRequest("Failed to get status delivery list");
             }
         }
     }

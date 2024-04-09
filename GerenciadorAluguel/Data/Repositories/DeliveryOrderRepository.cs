@@ -1,36 +1,43 @@
 ﻿using Amazon.SQS;
+using Amazon.SQS.Model;
+using Core;
 using Core.Interfaces.Repositories;
 using Core.Models;
+using Core.Models.Configurations;
 using Dapper;
+using Microsoft.Extensions.Options;
 using System.Data;
 using System.Text.Json;
 
 namespace Data.Repositories
 {
-    internal class DeliveryOrderRepository : IDeliveryOrderRepository
+    public class DeliveryOrderRepository : IDeliveryOrderRepository
     {
         private readonly Func<IDbConnection> _connection;
         private readonly IAmazonSQS _client;
         private readonly IUtilRepository _utilRepository;
-        public DeliveryOrderRepository(Func<IDbConnection> connection, 
+        private readonly AwsConfig _awsConfig;
+        public DeliveryOrderRepository(Func<IDbConnection> connection,
             IAmazonSQS client,
-            IUtilRepository utilRepository)
+            IUtilRepository utilRepository,
+            IOptions<AwsConfig> awsConfig)
         {
             _connection = connection;
             _client = client;
             _utilRepository = utilRepository;
+            _awsConfig = awsConfig.Value;
         }
-        public async Task AddDeliveyAsync(DeliveryOrder deliveryOrder)
+        public async Task AddDeliveryAsync(DeliveryOrder deliveryOrder)
         {
             var query = @"
                 INSERT INTO DELIVERYORDER (ID, DATACREATE, COSTDELIVERY, IDSTATUSDELIVERYORDER) 
-                VALUES (@Id, @DateCreate, @CostDelivery, @StatusId);";
+                VALUES (@ID, @DATECREATE, @COSTDELIVERY, @STATUSID);";
 
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@Id", deliveryOrder.Id);
-            parameters.Add("@DateCreate", deliveryOrder.DateCreate);
-            parameters.Add("@CostDelivery", deliveryOrder.CostDelivery);
-            parameters.Add("@StatusId", deliveryOrder.IdStatusDeliveryOrder);
+            DynamicParameters parameters = new();
+            parameters.Add("@ID", deliveryOrder.Id.Value);
+            parameters.Add("@DATECREATE", deliveryOrder.DateCreate.Value);
+            parameters.Add("@COSTDELIVERY", deliveryOrder.CostDelivery.Value);
+            parameters.Add("@STATUSID", deliveryOrder.IdStatusDeliveryOrder.Value);
 
             using IDbConnection connection = _connection.Invoke();
 
@@ -46,23 +53,24 @@ namespace Data.Repositories
             return await connection.QueryAsync<StatusDeliveryOrder>(query);
         }
 
-        public async Task SendMessageSQSAsync(DeliveryOrder deliveryOrder)
-        {
-            try
-            {
-                var response = await _client.SendMessageAsync("http://localhost:4566/000000000000/delivery-order", JsonSerializer.Serialize(deliveryOrder));
-            }
-            catch (AmazonSQSException ex)
-            {
-                //log
-            }
-            catch (Exception ex)
-            {
-                //log
-            }
-        }
+        public async Task SendMessageSQSAsync(DeliveryOrder deliveryOrder) =>
+            await _client.SendMessageAsync(new SendMessageRequest() { QueueUrl = _awsConfig.SQSUrl, MessageBody = JsonSerializer.Serialize(deliveryOrder) }).ConfigureAwait(false);
 
         public async Task<bool> IsStatusValidAsync(Guid id) =>
-            await _utilRepository.IsFieldValueUniqueAsync("STATUSDELIVERYORDER", nameof(id), id);
+            !await _utilRepository.IsFieldValueUniqueAsync(Constantes.TABLE_NAME_STATUSDELIVERYORDER, nameof(id), id).ConfigureAwait(false);
+
+        public async Task AcceptDeliveryOrderByUser(Guid idUser, Guid idDeliveryOrder, ControlConnection connection)
+        {
+            string query = "INSERT INTO DELIVERYORDERACCEPTANCE (IDUSER, IDDELIVERYORDER) VALUES (@IDUSER, @IDDELIVERYORDER)";
+
+            DynamicParameters parameters = new();
+            parameters.Add("@IDUSER", idUser);
+            parameters.Add("@IDDELIVERYORDER", idDeliveryOrder);
+
+            await connection.Connection.ExecuteAsync(query, parameters, connection.Transaction);
+        }
+
+        public async Task UpdateStatusDeliveryOrderAsync(Guid id, Guid idStatusDeliveryOrder, ControlConnection connection) =>
+            await _utilRepository.UpdateFieldAsync(Constantes.TABLE_NAME_DELIVERYORDER, nameof(idStatusDeliveryOrder), idStatusDeliveryOrder, nameof(id), id, connection).ConfigureAwait(false);
     }
 }

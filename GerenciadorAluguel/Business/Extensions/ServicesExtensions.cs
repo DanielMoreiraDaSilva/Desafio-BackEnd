@@ -10,6 +10,7 @@ namespace Business.Extensions
         {
             services.AddScoped<IMotorcycleService, MotorcycleService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDeliveryOrderService, DeliveryOrderService>();
         }
     }
 }

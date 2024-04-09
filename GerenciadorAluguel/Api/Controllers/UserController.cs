@@ -1,6 +1,7 @@
 ﻿using Core.Interfaces.Services;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Api.Controllers
 {
@@ -9,14 +10,16 @@ namespace Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
+        private readonly IUserService _service;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(ILogger<UserController> logger, IUserService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         [HttpGet("listCNHType")]
-        public async Task<IActionResult> GetListCNH([FromServices] IUserService _service, [FromQuery] bool? valid = null)
+        public async Task<IActionResult> GetListCNHType([FromQuery] bool? valid = null)
         {
             try
             {
@@ -25,14 +28,28 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Doesn't possible get CNH list");
+                _logger.LogError(ex, "Failed to get CNH list");
+                return BadRequest("Failed to get CNH list");
             }
+        }
 
+        [HttpGet("listUserNotifiedByDeliveryOrder")]
+        public async Task<IActionResult> GetListUserNotifiedByDeliveryOrder([FromQuery] Guid idDeliveryOrder)
+        {
+            try
+            {
+                var result = await _service.GetListUserNotifiedByIdDeliveryOrder(idDeliveryOrder).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to get user list notified by delivery order");
+                return BadRequest("Failed to get user list notified by delivery order");
+            }
         }
 
         [HttpPost("insertUser")]
-        public async Task<IActionResult> Post([FromServices] IUserService _service, User user)
+        public async Task<IActionResult> PostInsertUser(User user)
         {
             try
             {
@@ -41,42 +58,46 @@ namespace Api.Controllers
                 if (!validate.Errors.Any())
                 {
                     await _service.AddAsync(user).ConfigureAwait(false);
+                    _logger.LogInformation("User inserted: {UserId}", user.Id);
                     return Ok("User inserted");
                 }
                 else
+                {
+                    _logger.LogWarning("Failed to insert user: {Errors}", string.Join(", ", validate.Errors));
                     return BadRequest(validate);
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Doesn't possible insert motorcycle");
+                _logger.LogError(ex, "Failed to insert user");
+                return BadRequest("Failed to insert user");
             }
         }
 
-        [HttpPost("atualizar-cadastro")]
-        public async Task<IActionResult> UpdaloadCnhImage([FromServices] IUserService _service, Guid idUser, IFormFile cnhImage)
+        [HttpPost("updateCNHImage")]
+        public async Task<IActionResult> UploadCnhImage([Required] Guid idUser, IFormFile cnhImage)
         {
             try
             {
                 if (cnhImage == null || cnhImage.Length == 0)
-                    return BadRequest("Nenhuma imagem da CNH foi enviada.");
+                    return BadRequest("No CNH image was sent.");
 
                 if (cnhImage.ContentType != "image/png" && cnhImage.ContentType != "image/bmp")
-                    return BadRequest("O formato do arquivo deve ser PNG ou BMP.");
+                    return BadRequest("The file format must be PNG or BMP.");
 
                 using var stream = new MemoryStream();
                 await cnhImage.CopyToAsync(stream).ConfigureAwait(false);
 
-                await _service.UpdaloadCnhImageAsync(idUser, stream, cnhImage.ContentType).ConfigureAwait(false);
+                await _service.UploadCnhImageAsync(idUser, stream, cnhImage.ContentType).ConfigureAwait(false);
+                _logger.LogInformation("CNH image updated for user: {UserId}", idUser);
 
-                return Ok("Cadastro atualizado com sucesso.");
+                return Ok("Registration updated successfully.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Doesn't possible update CNH image");
+                _logger.LogError(ex, "Failed to update CNH image");
+                return BadRequest("Failed to update CNH image");
             }
         }
-
     }
 }

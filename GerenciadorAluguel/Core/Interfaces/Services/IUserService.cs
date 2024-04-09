@@ -7,6 +7,7 @@ namespace Core.Interfaces.Services
         Task<IEnumerable<TypeCNH>> GetAllCNHTypeAsync(bool? valid = null);
         Task<ValidateReturn> ValidateNewUserAsync(User user);
         Task AddAsync(User user);
-        Task UpdaloadCnhImageAsync(Guid idUser, Stream stream, string contentType);
+        Task UploadCnhImageAsync(Guid idUser, Stream stream, string contentType);
+        Task<IEnumerable<User>> GetListUserNotifiedByIdDeliveryOrder(Guid IdDeliveryOrder);
     }
 }

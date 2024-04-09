@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces.Repositories;
+using Core.Models;
 using Dapper;
 using System.Data;
 using System.Text;
@@ -28,7 +29,7 @@ namespace Data.Repositories
             return result == 0;
         }
 
-        public async Task UpdateFieldAsync<T>(string table, string fieldToUpdate, T valueToUpdate, string fieldToMatch, object valueToMatch)
+        public async Task UpdateFieldAsync<T>(string table, string fieldToUpdate, T valueToUpdate, string fieldToMatch, object valueToMatch, ControlConnection controlConnection = null)
         {
             var query = new StringBuilder()
                 .AppendFormat("UPDATE {0} SET {1}=@{1} WHERE {2}=@{2};", table, fieldToUpdate, fieldToMatch);
@@ -39,7 +40,10 @@ namespace Data.Repositories
 
             using IDbConnection connection = _connection.Invoke();
 
-            await connection.ExecuteAsync(query.ToString(), parameters);
+            if(controlConnection != null)
+                await controlConnection.Connection.ExecuteAsync(query.ToString(), parameters, controlConnection.Transaction);
+            else
+                await connection.ExecuteAsync(query.ToString(), parameters);
         }
 
     }

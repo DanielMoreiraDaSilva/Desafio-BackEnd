@@ -1,5 +1,8 @@
-﻿namespace Core.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Core.Models
 {
+    [ExcludeFromCodeCoverage]
     public class TypeCNH
     {
         public Guid Id { get; set; }

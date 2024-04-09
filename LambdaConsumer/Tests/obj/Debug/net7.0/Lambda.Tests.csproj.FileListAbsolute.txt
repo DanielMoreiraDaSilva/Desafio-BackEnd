@@ -1,0 +1,5 @@
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Tests\obj\Debug\net7.0\Lambda.Tests.csproj.AssemblyReference.cache
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Tests\obj\Debug\net7.0\Lambda.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Tests\obj\Debug\net7.0\Lambda.Tests.AssemblyInfoInputs.cache
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Tests\obj\Debug\net7.0\Lambda.Tests.AssemblyInfo.cs
+C:\Users\danie.DESKTOP-M1EOC6E\OneDrive\Área de Trabalho\Trampo\Repositórios\Desafio-BackEnd\LambdaConsumer\Tests\obj\Debug\net7.0\Lambda.Tests.csproj.CoreCompileInputs.cache

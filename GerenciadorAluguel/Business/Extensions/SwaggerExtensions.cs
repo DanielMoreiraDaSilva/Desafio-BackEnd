@@ -24,7 +24,6 @@ namespace Business.Extensions
                         Name = "Example License",
                     }
                 });
-                //options.OperationFilter<AddRequiredHeaderParameter>();
             });
         }
     }
