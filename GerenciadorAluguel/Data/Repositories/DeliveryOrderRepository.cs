@@ -53,8 +53,11 @@ namespace Data.Repositories
             return await connection.QueryAsync<StatusDeliveryOrder>(query);
         }
 
-        public async Task SendMessageSQSAsync(DeliveryOrder deliveryOrder) =>
+        public async Task SendMessageSQSAsync(DeliveryOrder deliveryOrder)
+        {
             await _client.SendMessageAsync(new SendMessageRequest() { QueueUrl = _awsConfig.SQSUrl, MessageBody = JsonSerializer.Serialize(deliveryOrder) }).ConfigureAwait(false);
+
+        }
 
         public async Task<bool> IsStatusValidAsync(Guid id) =>
             !await _utilRepository.IsFieldValueUniqueAsync(Constantes.TABLE_NAME_STATUSDELIVERYORDER, nameof(id), id).ConfigureAwait(false);

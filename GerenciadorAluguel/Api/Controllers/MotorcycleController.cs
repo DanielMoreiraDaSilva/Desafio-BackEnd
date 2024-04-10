@@ -44,7 +44,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("lis-tmotorcycles")]
+        [HttpGet("list-motorcycles")]
         public async Task<IActionResult> GetListMotorcycles([FromQuery] MotorcycleFilter filter)
         {
             try

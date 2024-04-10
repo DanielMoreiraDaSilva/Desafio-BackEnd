@@ -17,8 +17,23 @@ namespace Business.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDeliveryOrderRepository, DeliveryOrderRepository>();
             services.AddScoped<IUtilRepository, UtilRepository>();
-            services.AddScoped<IAmazonS3, AmazonS3Client>(x => new AmazonS3Client(new BasicAWSCredentials(configuration["localstackAccessKey"], configuration["localstackSecretKey"]), new AmazonS3Config() { ServiceURL = configuration["LocalStackAWS:HostPath"], ForcePathStyle = true }));
-            services.AddScoped<IAmazonSQS, AmazonSQSClient>(x => new AmazonSQSClient(new BasicAWSCredentials(configuration["localstackAccessKey"], configuration["localstackSecretKey"]), new AmazonSQSConfig() { ServiceURL = configuration["LocalStackAWS:HostPath"]}));
+            services.AddScoped<IAmazonS3, AmazonS3Client>(x 
+                => new AmazonS3Client(
+                    new BasicAWSCredentials(
+                        configuration["localstackAccessKey"], 
+                        configuration["localstackSecretKey"]
+                        ), 
+                    new AmazonS3Config() {
+                        ServiceURL = configuration["LocalStackAWS:HostPath"], 
+                        ForcePathStyle = true}));
+            services.AddScoped<IAmazonSQS, AmazonSQSClient>(x 
+                => new AmazonSQSClient(
+                    new BasicAWSCredentials(
+                        configuration["localstackAccessKey"], 
+                        configuration["localstackSecretKey"]
+                        ), 
+                    new AmazonSQSConfig() { 
+                        ServiceURL = configuration["LocalStackAWS:HostPath"]}));
         }
     }
 }

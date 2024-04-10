@@ -39,8 +39,9 @@
 
 ### Instalações Necessárias
 - SDK .NET 8
+- SDK .NET 6
 - AWS CLI
-- Amazon.Lambda.TestTool-8.0
+- Amazon.Lambda.TestTool-6.0
 
 ### Configuração do Banco de Dados PostgreSQL
 
@@ -56,7 +57,7 @@ User ID=postgres;Password=inicial;Host=localhost;Port=5432;Database=postgresql;P
 
 ### Configuração e Execução da API e Lambda
 
-1. Altere a connection string no código para `Host=localhost` e os endereços dos serviços LocalStack para `localhost`.
+1. Altere a connection string no código da lambda para `Host=localhost` e os endereços dos serviços LocalStack para `localhost`.
 2. Execute o script `script_stack_aws.sh` para configurar os serviços AWS localmente.
 3. Execute a API e a função Lambda.
 
